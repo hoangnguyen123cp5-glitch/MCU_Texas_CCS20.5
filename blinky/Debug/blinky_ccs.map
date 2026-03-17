@@ -1,0 +1,198 @@
+******************************************************************************
+            TI ARM Clang Linker PC v4.0.4                      
+******************************************************************************
+>> Linked Tue Mar 17 12:40:46 2026
+
+OUTPUT FILE NAME:   <blinky.out>
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 000004fd
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  FLASH                 00000000   00040000  0000056e  0003fa92  R  X
+  SRAM                  20000000   00008000  00000800  00007800  RW X
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    0000056e   0000056e    r-x
+  00000000    00000000    0000026c   0000026c    r-- .intvecs
+  0000026c    0000026c    00000302   00000302    r-x .text
+20000000    20000000    00000800   00000000    rw-
+  20000000    20000000    00000800   00000000    rw- .stack
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    0000026c     
+                  00000000    0000026c     startup_ccs.o (.intvecs)
+
+.text      0    0000026c    00000302     
+                  0000026c    0000016c     driverlib.lib : gpio.obj (.text:GPIOPadConfigSet)
+                  000003d8    0000008c     blinky.o (.text.main)
+                  00000464    00000038     driverlib.lib : sysctl.obj (.text:SysCtlPeripheralReady)
+                  0000049c    00000034                   : sysctl.obj (.text:SysCtlPeripheralEnable)
+                  000004d0    0000002c                   : gpio.obj (.text:GPIODirModeSet)
+                  000004fc    0000002c     libc.a : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs)
+                  00000528    0000001a     driverlib.lib : gpio.obj (.text:GPIOPinTypeGPIOOutput)
+                  00000542    00000006     startup_ccs.o (.text.ResetISR)
+                  00000548    00000006     driverlib.lib : gpio.obj (.text:GPIOPinWrite)
+                  0000054e    00000006                   : sysctl.obj (.text:SysCtlDelay)
+                  00000554    00000006     libc.a : exit.c.obj (.text:abort)
+                  0000055a    00000004     startup_ccs.o (.text.FaultISR)
+                  0000055e    00000004     libsysbm.a : hostexit.c.obj (.text.HOSTexit)
+                  00000562    00000004     startup_ccs.o (.text.IntDefaultHandler)
+                  00000566    00000004     startup_ccs.o (.text.NmiSR)
+                  0000056a    00000004     libc.a : pre_init.c.obj (.text._system_pre_init)
+
+.cinit     0    00000000    00000000     
+
+.init_array 
+*          0    00000000    00000000     UNINITIALIZED
+
+.stack     0    20000000    00000800     UNINITIALIZED
+                  20000000    00000004     libc.a : boot_cortex_m.c.obj (.stack)
+                  20000004    000007fc     --HOLE--
+
+__llvm_prf_cnts 
+*          0    20000000    00000000     UNINITIALIZED
+
+__llvm_prf_bits 
+*          0    20000000    00000000     UNINITIALIZED
+
+MODULE SUMMARY
+
+       Module                code   ro data   rw data
+       ------                ----   -------   -------
+    .\
+       startup_ccs.o         18     620       0      
+       blinky.o              140    0         0      
+    +--+---------------------+------+---------+---------+
+       Total:                158    620       0      
+                                                     
+    C:/ti/TivaWare_C_Series-2.2.0.295/driverlib/ccs/Debug/driverlib.lib
+       gpio.obj              440    0         0      
+       sysctl.obj            114    0         0      
+    +--+---------------------+------+---------+---------+
+       Total:                554    0         0      
+                                                     
+    C:\ti\ccs2050\ccs\tools\compiler\ti-cgt-armllvm_4.0.4.LTS\lib\armv7em-ti-none-eabihf/c/libc.a
+       boot_cortex_m.c.obj   44     0         0      
+       exit.c.obj            6      0         0      
+       pre_init.c.obj        4      0         0      
+    +--+---------------------+------+---------+---------+
+       Total:                54     0         0      
+                                                     
+    C:\ti\ccs2050\ccs\tools\compiler\ti-cgt-armllvm_4.0.4.LTS\lib\armv7em-ti-none-eabihf/c/libsysbm.a
+       hostexit.c.obj        4      0         0      
+    +--+---------------------+------+---------+---------+
+       Total:                4      0         0      
+                                                     
+       Stack:                0      0         2048   
+    +--+---------------------+------+---------+---------+
+       Grand Total:          770    620       2048   
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                    
+-------   ----                    
+0000055e  C$$EXIT                 
+000004d1  GPIODirModeSet          
+0000026d  GPIOPadConfigSet        
+00000529  GPIOPinTypeGPIOOutput   
+00000549  GPIOPinWrite            
+0000055f  HOSTexit                
+00000543  ResetISR                
+0000054f  SysCtlDelay             
+0000049d  SysCtlPeripheralEnable  
+00000465  SysCtlPeripheralReady   
+20000800  __STACK_END             
+00000800  __STACK_SIZE            
+20000200  __STACK_TOP             
+00000000  __TI_ATRegion0_region_sz
+00000000  __TI_ATRegion0_src_addr 
+00000000  __TI_ATRegion0_trg_addr 
+00000000  __TI_ATRegion1_region_sz
+00000000  __TI_ATRegion1_src_addr 
+00000000  __TI_ATRegion1_trg_addr 
+00000000  __TI_ATRegion2_region_sz
+00000000  __TI_ATRegion2_src_addr 
+00000000  __TI_ATRegion2_trg_addr 
+00000000  __TI_CINIT_Base         
+00000000  __TI_CINIT_Limit        
+00000000  __TI_CINIT_Warm         
+ffffffff  __TI_pprof_out_hndl     
+ffffffff  __TI_prof_data_size     
+ffffffff  __TI_prof_data_start    
+00000000  __TI_static_base__      
+ffffffff  __binit__               
+UNDEFED   __mpu_init              
+20000000  __stack                 
+20000000  __start___llvm_prf_bits 
+20000000  __start___llvm_prf_cnts 
+20000000  __stop___llvm_prf_bits  
+20000000  __stop___llvm_prf_cnts  
+000004fd  _c_int00_noinit_noargs  
+0000056b  _system_pre_init        
+00000555  abort                   
+ffffffff  binit                   
+00000000  g_pfnVectors            
+000003d9  main                    
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                    
+-------   ----                    
+00000000  __TI_ATRegion0_region_sz
+00000000  __TI_ATRegion0_src_addr 
+00000000  __TI_ATRegion0_trg_addr 
+00000000  __TI_ATRegion1_region_sz
+00000000  __TI_ATRegion1_src_addr 
+00000000  __TI_ATRegion1_trg_addr 
+00000000  __TI_ATRegion2_region_sz
+00000000  __TI_ATRegion2_src_addr 
+00000000  __TI_ATRegion2_trg_addr 
+00000000  __TI_CINIT_Base         
+00000000  __TI_CINIT_Limit        
+00000000  __TI_CINIT_Warm         
+00000000  __TI_static_base__      
+00000000  g_pfnVectors            
+0000026d  GPIOPadConfigSet        
+000003d9  main                    
+00000465  SysCtlPeripheralReady   
+0000049d  SysCtlPeripheralEnable  
+000004d1  GPIODirModeSet          
+000004fd  _c_int00_noinit_noargs  
+00000529  GPIOPinTypeGPIOOutput   
+00000543  ResetISR                
+00000549  GPIOPinWrite            
+0000054f  SysCtlDelay             
+00000555  abort                   
+0000055e  C$$EXIT                 
+0000055f  HOSTexit                
+0000056b  _system_pre_init        
+00000800  __STACK_SIZE            
+20000000  __stack                 
+20000000  __start___llvm_prf_bits 
+20000000  __start___llvm_prf_cnts 
+20000000  __stop___llvm_prf_bits  
+20000000  __stop___llvm_prf_cnts  
+20000200  __STACK_TOP             
+20000800  __STACK_END             
+ffffffff  __TI_pprof_out_hndl     
+ffffffff  __TI_prof_data_size     
+ffffffff  __TI_prof_data_start    
+ffffffff  __binit__               
+ffffffff  binit                   
+UNDEFED   __mpu_init              
+
+[42 symbols]
