@@ -1,0 +1,204 @@
+# TM4C123 Blinky Project (CCS 25.04)
+## 1. Overview
+This project demonstrates basic GPIO control on the **TM4C123GH6PM** microcontroller using **Code Composer Studio 25.04** and **TivaWare C Series**.
+The program runs on the **EK-TM4C123GXL LaunchPad** and blinks the onboard RGB LED.
+---
+## 2. Hardware
+* Board: EK-TM4C123GXL (Tiva C LaunchPad)
+* MCU: TM4C123GH6PM
+* LED pins:
+  * PF1 → Red
+  * PF2 → Blue
+  * PF3 → Green
+---
+## 3. Software
+* IDE: Code Composer Studio 25.04
+* Compiler: TI ARM Clang (tiarmclang)
+* SDK: TivaWare_C_Series-2.2.0.295
+---
+## 4. Project Structure
+```
+.
+├── blinky.c
+├── startup_ccs.c
+├── blinky_ccs.cmd
+├── targetConfigs/
+├── README.md
+└── Debug/ (ignored)
+```
+## 5. Build Configuration
+### Required Include Path
+Add the TivaWare root directory:
+```
+C:/ti/TivaWare_C_Series-2.2.0.295
+```
+### Compiler
+Use:
+```
+tiarmclang (ARM LLVM)
+```
+### Important Note
+Remove post-build step:
+```
+tiobj2bin ...
+```
+This step is incompatible with ARM Clang in CCS 25.
+---
+## 6. How to Build
+```
+Project → Clean
+Project → Build Project
+```
+Expected output:
+```
+blinky.out
+```
+---
+
+## 7. How to Run
+1. Connect EK-TM4C123GXL via USB
+2. In CCS:
+```
+Run → Debug
+```
+3. If program halts at `main()`, press:
+```
+Resume (F8)
+```
+---
+## 8. Program Behavior
+The RGB LED cycles through:
+```
+RED → BLUE → GREEN → OFF
+```
+---
+## 9. Code Example
+```c
+#include <stdint.h>
+#include <stdbool.h>
+#include "inc/hw_memmap.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/gpio.h"
+
+int main(void)
+{
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF))
+    {
+    }
+
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE,
+                          GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
+
+    while(1)
+    {
+        GPIOPinWrite(GPIO_PORTF_BASE,
+                     GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3,
+                     GPIO_PIN_1);
+
+        SysCtlDelay(1000000);
+
+        GPIOPinWrite(GPIO_PORTF_BASE,
+                     GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3,
+                     GPIO_PIN_2);
+
+        SysCtlDelay(1000000);
+
+        GPIOPinWrite(GPIO_PORTF_BASE,
+                     GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3,
+                     GPIO_PIN_3);
+
+        SysCtlDelay(1000000);
+
+        GPIOPinWrite(GPIO_PORTF_BASE,
+                     GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3,
+                     0);
+
+        SysCtlDelay(1000000);
+    }
+}
+```
+
+---
+
+## 10. Execution Flow
+
+The program does not start directly from `main()`.
+
+Actual flow:
+
+```
+Reset
+→ startup_ccs.c (vector table + ResetISR)
+→ memory initialization
+→ main()
+→ while(1)
+```
+
+---
+
+## 11. Known Issues
+
+### Warning: legacy pragma
+
+```
+#pragma DATA_SECTION(...)
+```
+
+This is a legacy TI compiler pragma and generates warnings in ARM Clang.
+
+It does not prevent execution.
+
+---
+
+### Warning: wchar_t mismatch
+
+Caused by precompiled driverlib built with older toolchain.
+
+Safe for basic projects.
+
+---
+
+## 12. Git Ignore Recommendation
+
+```
+Debug/
+Release/
+*.out
+*.bin
+*.map
+*.obj
+*.d
+*.log
+.metadata/
+.settings/
+```
+
+---
+
+## 13. Next Steps
+
+Recommended learning progression:
+
+```
+1. GPIO (blinky)
+2. Button input
+3. Timer interrupt
+4. PWM
+5. ADC
+6. UART
+7. Motor control (DC → BLDC)
+```
+
+---
+
+## 14. Notes
+
+This project is used as a foundation for:
+
+* Embedded systems development
+* Real-time control
+* Motor control (future work on C2000)
+
+---
